@@ -1,0 +1,26 @@
+workflows:
+  profitride-debug-apk:
+    name: ProfitRide debug APK
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+    scripts:
+      - name: Instalează Gradle 8.11.1 (proiectul nu are wrapper)
+        script: |
+          set -e
+          curl -fsSL -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+          unzip -q /tmp/gradle.zip -d /tmp
+          echo "GRADLE=/tmp/gradle-8.11.1/bin/gradle" >> $CM_ENV
+      - name: Teste unitare
+        script: $GRADLE testDebugUnitTest --no-daemon
+      - name: Build APK debug
+        script: $GRADLE assembleDebug --no-daemon
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
