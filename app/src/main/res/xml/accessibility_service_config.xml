@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Serviciul doar CITEȘTE textul vizibil din aplicațiile Bolt Driver și Uber Driver și desenează bula.
+    Pentru citirea vizuală (când textul nu e disponibil) poate face o captură a ecranului, prelucrată doar în memorie.
+    Nu cere și nu folosește: gesturi, atingeri, acțiuni asupra altor aplicații, filtrare de taste.
+    Nu există packageNames aici ca să putem ascunde bula când șoferul iese din aplicație;
+    evenimentele altor aplicații sunt ignorate imediat, fără să le citim conținutul.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagIncludeNotImportantViews"
+    android:canRetrieveWindowContent="true"
+    android:canTakeScreenshot="true"
+    android:description="@string/service_description"
+    android:notificationTimeout="100"
+    android:settingsActivity="ro.profitride.ui.MainActivity" />
